@@ -29,7 +29,7 @@ public class Transaction {
             joinColumns = @JoinColumn(name = "transaction_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
     private Set<Item> items;
-    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.MERGE, orphanRemoval = true)
     private Set<Message> messages;
     @OneToMany(mappedBy = "transaction")
     private Set<TransactionApproval> transactionApprovals;

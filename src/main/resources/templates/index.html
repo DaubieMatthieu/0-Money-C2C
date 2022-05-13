@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" th:with="appName=${T(isep.endoftrackproject._0money_c2c.Constants).APP_NAME}">
+<!--/*@thymesVar id="appName" type="String"*/-->
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${appName}"></title>
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${'Welcome to ' + appName + ' !'}"></h1>
+    <form id="search-items" th:action="@{/items/s}" th:object="${results}">
+        <div class="form-group text-center">
+            <input name="name" th:value="${param.name}" type="text" placeholder="What are you looking for ?" autofocus/>
+            <button type="submit">
+                <span class="fa fa-search"></span>
+                Search
+            </button>
+        </div>
+    </form>
+    <output form="search-items" th:if="${not #lists.isEmpty(results)}" style="width: 100%">
+        <!--/*@thymesVar id="item" type="isep.endoftrackproject._0money_c2c.model.Item"*/-->
+        <div th:each="item : ${results}">
+            <h5 th:text="${item.getName}"></h5>
+            <p th:text="${item.getPrice()}"></p>
+            <p th:text="${item.getOwner().getUsername()}"></p>
+        </div>
+    </output>
+</div>
+</body>
+</html>

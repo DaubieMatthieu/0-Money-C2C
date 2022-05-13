@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User creation</title>
+</head>
+<body>
+<h3>User creation form</h3>
+
+<form action="#" th:action="@{/users}" th:object="${user}" method="post">
+    <label>Username
+        <input type="text" th:field="*{username}"/>
+    </label>
+    <label>Email
+        <input type="text" th:field="*{email}"/>
+    </label>
+    <label>Password
+        <input type="text" th:field="*{password}"/>
+    </label>
+    <input type="submit" value="Submit"/>
+</form>
+</body>
+</html>

@@ -15,10 +15,10 @@ import javax.persistence.*;
 public class TransactionApproval {
     @EmbeddedId
     TransactionApprovalKey id;
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @MapsId("userId")
     private User user;
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @MapsId("transactionId")
     private Transaction transaction;
     @Enumerated(EnumType.STRING)
