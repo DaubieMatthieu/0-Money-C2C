@@ -1,8 +1,6 @@
 package isep.endoftrackproject._0money_c2c.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Embeddable;
@@ -12,8 +10,6 @@ import java.util.Objects;
 @Embeddable
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 class TransactionApprovalKey implements Serializable {
     private Long userId;
     private Long transactionId;
