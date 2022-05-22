@@ -21,4 +21,8 @@ public class Address {
     private String country;
     private Double longitude;
     private Double latitude;
+
+    public String getText() {
+        return line1 + " " + city + " " + zipCode + " " + country;
+    }
 }
