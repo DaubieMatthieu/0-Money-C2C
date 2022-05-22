@@ -28,6 +28,8 @@ public class LocationService {
         }};
         try {
             HashMap response = call("search", parameters);
+            assert response != null;
+            //noinspection unchecked
             List<HashMap<String, Object>> result = (List<HashMap<String, Object>>) response.get("results");
             HashMap<String, Object> mostPertinentResult = result.get(0);
             address.setLine1((String) mostPertinentResult.get("address_line1"));
