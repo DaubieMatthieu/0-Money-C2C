@@ -19,7 +19,7 @@ public class User {
     private String email;
     private String password;
     private String telephoneNumber;
-    @OneToOne(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Address address;
     @OneToMany(mappedBy = "owner", cascade = CascadeType.MERGE, orphanRemoval = true)
     private Set<Item> items;
