@@ -27,6 +27,9 @@
             <label>Password
                 <input type="password" th:field="${user.password}" required th:disabled="${view}"/>
             </label>
+            <label>Confirm password
+                <input type="password" th:field="${user.confirmPassword}" required th:disabled="${view}"/>
+            </label>
         </div>
         <label>Telephone Number
             <input type="text" th:field="${user.telephoneNumber}" required th:disabled="${view}"/>
