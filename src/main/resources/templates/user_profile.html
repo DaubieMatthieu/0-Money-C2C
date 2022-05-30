@@ -1,35 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Item creation</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>User profile</title>
 </head>
 <body>
-<h3>Item creation form</h3>
-
-<form th:action="@{/items}" th:object="${item}" method="post">
-    <label>Name
-        <input type="text" th:field="*{name}" required/>
+<div class="bg-light">
+    <label>Pseudo
     </label>
-    <label>Owner Id
-        <input type="number" th:field="*{owner.id}" required/>
+    <label>address
     </label>
-    <label>Description
-        <textarea th:field="*{description}"></textarea>
+    <label>Evaluation
     </label>
-    <label>Quality
-        <select th:field="*{quality}" required>
-            <option th:each="v : ${T(isep.endoftrackproject._0money_c2c.model.Item.Quality).values()}" th:value="${v}"
-                    th:text="${v}"></option>
-        </select>
+    <label>selling number
     </label>
-    <label>Price
-        <input type="number" step="0.01" th:field="*{price}" required/>
-    </label>
-    <input type="submit" value="Submit"/>
-</form>
+    <input type="submit" value="Modify">
+</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
