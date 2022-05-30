@@ -2,53 +2,64 @@
 <!--/*@thymesVar id="user" type="isep.endoftrackproject._0money_c2c.model.User"*/-->
 <!--/*@thymesVar id="self" type="java.lang.Boolean"*/-->
 <!--/*@thymesVar id="mode" type="java.lang.String"*/-->
+<!--/*@thymesVar id="title" type="java.lang.String"*/-->
 <html lang="en" th:with="create=${mode=='create'}, edit=${mode=='edit'}, view=${mode=='view'}">
 <!--/*@thymesVar id="create" type="java.lang.Boolean"*/-->
 <!--/*@thymesVar id="edit" type="java.lang.Boolean"*/-->
 <!--/*@thymesVar id="view" type="java.lang.Boolean"*/-->
-<head th:with="title=(${create}?'Registration':(${self}?'Profile':${user.username}+' profile'))">
-    <!--/*@thymesVar id="title" type="java.lang.String"*/-->
+<head>
     <meta charset="UTF-8">
     <title th:text="${title}"></title>
 </head>
 <body>
 <div>
-    <form th:action="@{/users}" method="post" th:if="${create or edit or view}">
+    <form th:action="@{/user}" method="post" th:if="${create or edit or view}">
+        <!--/*@thymesVar id="error" type="java.lang.String"*/-->
         <label>
             <input type="number" th:field="${user.id}" hidden th:required="${edit}"/>
         </label>
         <label>Username
-            <input type="text" th:field="${user.username}" required th:disabled="${view}"/>
+            <input type="text" th:field="${user.username}" required th:disabled="${view}">
         </label>
+        <p th:each="error: ${#fields.errors('user.username')}" th:text="${error}">Validation error</p>
         <label>Email
             <input type="email" th:field="${user.email}" required th:disabled="${view}"/>
         </label>
+        <p th:each="error: ${#fields.errors('user.email')}" th:text="${error}">Validation error</p>
         <div th:hidden="${view}">
             <label>Password
                 <input type="password" th:field="${user.password}" required th:disabled="${view}"/>
             </label>
+            <p th:each="error: ${#fields.errors('user.password')}" th:text="${error}">Validation error</p>
             <label>Confirm password
                 <input type="password" th:field="${user.confirmPassword}" required th:disabled="${view}"/>
             </label>
+            <p th:each="error: ${#fields.errors('user')}" th:text="${error}">Validation error</p>
         </div>
         <label>Telephone Number
             <input type="text" th:field="${user.telephoneNumber}" required th:disabled="${view}"/>
         </label>
+        <p th:each="error: ${#fields.errors('user.telephoneNumber')}" th:text="${error}">Validation error</p>
         <fieldset>
             <legend>Address</legend>
             <label>Line 1
                 <input type="text" th:field="${user.address.line1}" required th:disabled="${view}"/>
             </label>
+            <p th:each="error: ${#fields.errors('user.address.line1')}" th:text="${error}">Validation error</p>
             <label>City
                 <input type="text" th:field="${user.address.city}" required th:disabled="${view}"/>
             </label>
+            <p th:each="error: ${#fields.errors('user.address.city')}" th:text="${error}">Validation error</p>
             <label>Zip code
                 <input type="text" th:field="${user.address.zipCode}" th:disabled="${view}"/>
             </label>
+            <p th:each="error: ${#fields.errors('user.address.zipCode')}" th:text="${error}">Validation error</p>
             <label>Country
                 <input type="text" th:field="${user.address.country}" required th:disabled="${view}"/>
             </label>
+            <p th:each="error: ${#fields.errors('user.address.country')}" th:text="${error}">Validation error</p>
         </fieldset>
+        <p th:text="${message}"></p>
         <a th:if="${view and self}" th:href="@{''(mode='edit')}">Edit</a>
         <input th:if="${!view}" type="submit" value="Submit"/>
     </form>
