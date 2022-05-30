@@ -6,6 +6,7 @@
     <title th:text="${appName}"></title>
 </head>
 <body>
+<header th:replace="fragments/general.html::header"></header>
 <div class="container">
     <h1 th:text="${'Welcome to ' + appName + ' !'}"></h1>
     <form id="search-items" th:action="@{/q}" th:object="${search}" method="post">
@@ -29,5 +30,6 @@
         </div>
     </div>
 </div>
+<footer th:replace="fragments/general.html::footer"></footer>
 </body>
 </html>
