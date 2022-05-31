@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${appName}"></title>
+    <div th:replace="fragments/general.html::head"></div>
 </head>
 <body>
+<div th:replace="fragments/general.html::navbar"></div>
 <div class="container">
     <h1 th:text="${'Welcome to ' + appName + ' !'}"></h1>
     <form id="search-items" th:action="@{/q}" th:object="${search}" method="post">

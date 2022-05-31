@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:with="appName=${T(isep.endoftrackproject._0money_c2c.constants.Constants).APP_NAME}">
+<!--/*@thymesVar id="appName" type="String"*/-->
 <head>
     <meta charset="UTF-8">
-    <title>User profile manage</title>
+    <title th:text="${appName}"></title>
+    <link th:replace="fragments/general.html::head"/>
 </head>
 <body>
-
+<div th:replace="fragments/general.html::navbar"></div>
+<div class="row justify-content-center">
+    <div class="bg-secondary m-5 p-5">
+        <h1>Manage profile</h1>
+        <form method="post">
+            <div class="form-group">
+                <label>Telephone Number
+                    <input class="form-control" type="text" required/>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>Line 1
+                    <input class="form-control" type="text" required/>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>City
+                    <input class="form-control" type="text" required/>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>Zip code
+                    <input class="form-control" type="text"/>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>Country
+                    <input class="form-control" type="text" required/>
+                </label>
+            </div>
+            <input class="form-control" type="submit" value="Submit"/>
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/general.html::scripts"></div>
 </body>
 </html>

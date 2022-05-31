@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en" th:with="appName=${T(isep.endoftrackproject._0money_c2c.constants.Constants).APP_NAME}">
+<!--/*@thymesVar id="appName" type="String"*/-->
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${appName}"></title>
+    <link th:replace="fragments/general.html::head"/>
+</head>
+<div th:replace="fragments/general.html::navbar"></div>
+<body class="h-100">
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <div class="col">
+            <h2>Contact List</h2>
+        </div>
+        <div class="col bg-secondary">
+            <h2>username</h2>
+        </div>
+        <div class="col-6">
+            <h2>Messaging</h2>
+            <input class="form-control fixed-bottom" type="text" placeholder="Enter message">
+        </div>
+        <div class="col bg-secondary">
+            <h2>username</h2>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="fragments/general.html::scripts"></div>
+</body>
+</html>

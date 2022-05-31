@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" th:with="appName=${T(isep.endoftrackproject._0money_c2c.constants.Constants).APP_NAME}">
+<!--/*@thymesVar id="appName" type="String"*/-->
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${appName}"></title>
+    <link th:replace="fragments/general.html::head"/>
+</head>
+<body>
+
+<div th:replace="fragments/general.html::navbar"></div>
+<div class="container">
+    <form class="bg-secondary m-5 p-5 d-flex justify-content-around">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown button
+            </button>
+            <div>
+            </div>
+            <div class="dropdown-menu p-3 bg-white" aria-labelledby="dropdownMenuButton">
+                <label>Marge
+                    <input class="form-control" type="number" name="quantity" min="1" max="50">
+                </label>
+                <label>Distance
+                    <input class="form-control" type="number" name="distance" min="1" max="1000">
+                </label>
+
+                <select class ="form-control">
+                    <option th:each="v : ${T(isep.endoftrackproject._0money_c2c.model.Item.Quality).values()}"
+                            th:value="${v}"
+                            th:text="${v}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <input class="form-control" style="width:400px" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control"  type="submit" value="Rechercher"/>
+        </div>
+    </form>
+
+</div>
+
+<div th:replace="fragments/general.html::scripts"></div>
+</body>
+</html>
