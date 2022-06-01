@@ -14,7 +14,7 @@
         <div class="dropdown">
             <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown button
+                Filter
             </button>
             <div>
             </div>
@@ -25,12 +25,13 @@
                 <label>Distance
                     <input class="form-control" type="number" name="distance" min="1" max="1000">
                 </label>
-
-                <select class ="form-control">
-                    <option th:each="v : ${T(isep.endoftrackproject._0money_c2c.model.Item.Quality).values()}"
-                            th:value="${v}"
-                            th:text="${v}"></option>
-                </select>
+                <label>Quality
+                    <select class ="form-control">
+                        <option th:each="v : ${T(isep.endoftrackproject._0money_c2c.model.Item.Quality).values()}"
+                                th:value="${v}"
+                                th:text="${v}"></option>
+                    </select>
+                </label>
             </div>
         </div>
 
