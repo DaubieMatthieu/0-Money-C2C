@@ -43,8 +43,18 @@ public class Item {
     }
 
     public enum Quality {
-        NEW,
+        DAMAGED,
         GOOD_QUALITY,
-        DAMAGED
+        NEW
+    }
+
+    private float score = price.floatValue() / 10 + 3 * quality.ordinal() + 3 * (available?1:0);
+    public float getscore() {
+        
+        return score;
+    }
+ 
+    public void setScore(float score) {
+        this.score = score;
     }
 }
