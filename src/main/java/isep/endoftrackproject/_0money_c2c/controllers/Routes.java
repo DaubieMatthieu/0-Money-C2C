@@ -16,21 +16,6 @@ public class Routes {
         return "login";
     }
 
-    @GetMapping("/register")
-    public String register() {
-        return "register";
-    }
-
-    @GetMapping("/user_profile")
-    public String user_profile() {
-        return "user_profile";
-    }
-
-    @GetMapping("/user_profile_manage")
-    public String user_profile_manage() {
-        return "user_profile_manage";
-    }
-
     @GetMapping("/messaging")
     public String messaging() {
         return "messaging";

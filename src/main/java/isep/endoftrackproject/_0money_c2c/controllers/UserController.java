@@ -29,6 +29,7 @@ class UserController {
     @GetMapping
     public String creationForm(Model model) {
         model.addAttribute("mode", "create");
+        model.addAttribute("self", true);
         model.addAttribute("title", "Registration");
         model.addAttribute("user", new User());
         return "user";
@@ -41,6 +42,7 @@ class UserController {
             //wrong parameters, the errors are automatically added to the model
             model.addAttribute("user", user);
             model.addAttribute("mode", "create");
+            model.addAttribute("self", true);
             model.addAttribute("title", "Registration");
             return "user";
         }

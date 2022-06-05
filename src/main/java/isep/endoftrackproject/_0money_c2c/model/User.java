@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -50,4 +51,16 @@ public class User {
     private Set<Message> sentMessages;
     @OneToMany(mappedBy = "user")
     private Set<TransactionApproval> transactionApprovals;
+
+    public Double getRating() {
+        return referredRatings.stream().mapToDouble(Rating::getRating).average().orElse(0.0);
+    }
+
+    public Set<Item> getSoldItems() {
+        return transactionApprovals.stream().map(TransactionApproval::getTransaction).filter(transaction -> transaction.getStatus()==Transaction.Status.ACCEPTED).flatMap(t->t.getItems().stream()).collect(Collectors.toSet());
+    }
+
+    public Integer getSoldItemsCount() {
+        return getSoldItems().size();
+    }
 }

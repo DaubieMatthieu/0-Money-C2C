@@ -7,68 +7,107 @@
 <!--/*@thymesVar id="create" type="java.lang.Boolean"*/-->
 <!--/*@thymesVar id="edit" type="java.lang.Boolean"*/-->
 <!--/*@thymesVar id="view" type="java.lang.Boolean"*/-->
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${title}"></title>
-</head>
+<head th:replace="fragments/general.html::head"></head>
 <body>
-<div>
-    <form th:action="@{/user}" method="post" th:if="${create or edit or view}">
-        <!--/*@thymesVar id="error" type="java.lang.String"*/-->
-        <label>
-            <input type="number" th:field="${user.id}" hidden th:required="${edit}"/>
-        </label>
-        <label>Username
-            <input type="text" th:field="${user.username}" required th:disabled="${view}">
-        </label>
-        <p th:each="error: ${#fields.errors('user.username')}" th:text="${error}">Validation error</p>
-        <label>Email
-            <input type="email" th:field="${user.email}" required th:disabled="${view}"/>
-        </label>
-        <p th:each="error: ${#fields.errors('user.email')}" th:text="${error}">Validation error</p>
-        <div th:hidden="${view}">
-            <label>Password
-                <input type="password" th:field="${user.password}" required th:disabled="${view}"/>
-            </label>
-            <p th:each="error: ${#fields.errors('user.password')}" th:text="${error}">Validation error</p>
-            <label>Confirm password
-                <input type="password" th:field="${user.confirmPassword}" required th:disabled="${view}"/>
-            </label>
-            <p th:each="error: ${#fields.errors('user')}" th:text="${error}">Validation error</p>
-        </div>
-        <label>Telephone Number
-            <input type="text" th:field="${user.telephoneNumber}" required th:disabled="${view}"/>
-        </label>
-        <p th:each="error: ${#fields.errors('user.telephoneNumber')}" th:text="${error}">Validation error</p>
-        <fieldset>
-            <legend>Address</legend>
-            <label>Line 1
-                <input type="text" th:field="${user.address.line1}" required th:disabled="${view}"/>
-            </label>
-            <p th:each="error: ${#fields.errors('user.address.line1')}" th:text="${error}">Validation error</p>
-            <label>City
-                <input type="text" th:field="${user.address.city}" required th:disabled="${view}"/>
-            </label>
-            <p th:each="error: ${#fields.errors('user.address.city')}" th:text="${error}">Validation error</p>
-            <label>Zip code
-                <input type="text" th:field="${user.address.zipCode}" th:disabled="${view}"/>
-            </label>
-            <p th:each="error: ${#fields.errors('user.address.zipCode')}" th:text="${error}">Validation error</p>
-            <label>Country
-                <input type="text" th:field="${user.address.country}" required th:disabled="${view}"/>
-            </label>
-            <p th:each="error: ${#fields.errors('user.address.country')}" th:text="${error}">Validation error</p>
+<div th:replace="fragments/general.html::navbar"></div>
+<form th:action="@{/user}" class="m-5 card px-5 bg-light" method="post" th:if="${create or edit or view}">
+    <!--/*@thymesVar id="error" type="java.lang.String"*/-->
+    <div class="row">
+        <fieldset class="col-sm">
+            <legend>Main information</legend>
+            <input th:if="${edit}" type="number" th:field="${user.id}" required hidden/>
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label">Username</label>
+                <input class="form-control col-sm-7" type="text" th:field="${user.username}" th:disabled="${view}"
+                       required>
+                <small class="col-sm-12" th:each="error: ${#fields.errors('user.username')}"
+                       th:text="${error}"></small>
+            </div>
+            <div class="form-group row" th:if="${self}">
+                <label class="col-sm-5 col-form-label">Email</label>
+                <input class="form-control col-sm-7" type="email" th:field="${user.email}" required
+                       th:disabled="${view}"/>
+                <small class="col-sm-12" th:each="error: ${#fields.errors('user.email')}"
+                       th:text="${error}"></small>
+            </div>
+            <div class="form-group row" th:if="${!view}">
+                <label class="col-sm-5 col-form-label">Password</label>
+                <input class="form-control col-sm-7" type="password" th:field="${user.password}" required
+                       th:disabled="${view}"/>
+                <small class="col-sm-12" th:each="error: ${#fields.errors('user.password')}"
+                       th:text="${error}"></small>
+            </div>
+            <div class="form-group row align-items-center" th:if="${!view}">
+                <label class="col-sm-5 col-form-label">Confirm password</label>
+                <input class="form-control col-sm-7" type="password" th:field="${user.confirmPassword}" required
+                       th:disabled="${view}"/>
+                <small class="col-sm-12" th:each="error: ${#fields.errors('user')}" th:text="${error}"></small>
+            </div>
+            <div class="form-group row align-items-center" th:if="${self}">
+                <label class="col-sm-5 col-form-label">Telephone Number</label>
+                <input class="form-control col-sm-7" type="text" th:field="${user.telephoneNumber}" required
+                       th:disabled="${view}"/>
+                <small class="col-sm-12" th:each="error: ${#fields.errors('user.telephoneNumber')}"
+                       th:text="${error}"></small>
+            </div>
+            <div class="form-group row" th:if="${!self}">
+                <label class="col-sm-5 col-form-label">Location</label>
+                <input class="form-control col-sm-7" type="text" th:field="${user.address.publicLocation}" disabled/>
+            </div>
+            <div class="form-group row" th:if="${view}">
+                <label class="col-sm-5 col-form-label">Evaluation</label>
+                <input class="form-control col-sm-7" type="text" th:field="${user.rating}" disabled/>
+            </div>
+            <div class="form-group row" th:if="${view}">
+                <label class="col-sm-5 col-form-label">Items sold</label>
+                <input class="form-control col-sm-7" type="number" th:field="${user.soldItemsCount}" disabled/>
+            </div>
         </fieldset>
-        <p th:text="${message}"></p>
-        <a th:if="${view and self}" th:href="@{''(mode='edit')}">Edit</a>
-        <input th:if="${!view}" type="submit" value="Submit"/>
-    </form>
+        <fieldset class="col-sm" th:if="${self}">
+            <legend>Address</legend>
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label">Line 1</label>
+                <input class="form-control col-sm-7" type="text" th:field="${user.address.line1}" required
+                       th:disabled="${view}" autocomplete="street-address"/>
+                <small class="col-sm-12" th:each="error: ${#fields.errors('user.address.line1')}"
+                       th:text="${error}"></small>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label">City</label>
+                <input class="form-control col-sm-7" type="text" th:field="${user.address.city}" required
+                       th:disabled="${view}"/>
 
-    <div th:if="${view}">
-        <h3>Ads</h3>
-        <div>
-            <!-- TODO display ads with a dedicated fragment-->
-        </div>
+                <small class="col-sm-12" th:each="error: ${#fields.errors('user.address.city')}"
+                       th:text="${error}"></small>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label">Zip code</label>
+                <input class="form-control col-sm-7" type="text" th:field="${user.address.zipCode}"
+                       th:disabled="${view}"/>
+                <small class="col-sm-12" th:each="error: ${#fields.errors('user.address.zipCode')}"
+                       th:text="${error}"></small>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label">Country</label>
+                <input class="form-control col-sm-7" type="text" th:field="${user.address.country}" required
+                       th:disabled="${view}"/>
+                <small class="col-sm-12" th:each="error: ${#fields.errors('user.address.country')}"
+                       th:text="${error}"></small>
+            </div>
+        </fieldset>
+    </div>
+    <p th:if="${message!=null}" th:text="${message}"></p>
+    <div class="col text-center">
+        <a th:if="${view and self}" class="btn btn-primary" th:href="@{''(mode='edit')}">Edit</a>
+        <input th:if="${!view}" class="btn btn-primary" type="submit" value="Submit"/>
+        <a th:if="${edit}" class="btn btn-danger" th:href="@{''(mode='view')}">Cancel</a>
+    </div>
+</form>
+
+<div th:if="${view}">
+    <h3>Ads</h3>
+    <div>
+        <!-- TODO display ads with a dedicated fragment-->
     </div>
 </div>
 </body>
