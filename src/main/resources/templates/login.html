@@ -1,11 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" th:with="appName=${T(isep.endoftrackproject._0money_c2c.constants.Constants).APP_NAME}">
-<!--/*@thymesVar id="appName" type="String"*/-->
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${appName}"></title>
-    <link th:replace="fragments/general.html::head"/>
-</head>
+<html lang="en">
+<head th:replace="fragments/general.html::head"></head>
 <body>
 <div th:replace="fragments/general.html::navbar"></div>
 <div class="row justify-content-center">
@@ -26,6 +21,5 @@
         </form>
     </div>
 </div>
-<div th:replace="fragments/general.html::scripts"></div>
 </body>
 </html>
