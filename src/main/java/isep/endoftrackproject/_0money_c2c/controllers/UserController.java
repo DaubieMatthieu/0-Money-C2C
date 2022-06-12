@@ -1,6 +1,7 @@
 package isep.endoftrackproject._0money_c2c.controllers;
 
 import isep.endoftrackproject._0money_c2c.model.User;
+import isep.endoftrackproject._0money_c2c.model.UserDTO;
 import isep.endoftrackproject._0money_c2c.repositories.AddressRepository;
 import isep.endoftrackproject._0money_c2c.services.LocationService;
 import isep.endoftrackproject._0money_c2c.services.UserService;
@@ -31,13 +32,12 @@ class UserController {
         model.addAttribute("mode", "create");
         model.addAttribute("self", true);
         model.addAttribute("title", "Registration");
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserDTO());
         return "user";
     }
 
     @PostMapping
-    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult result, Model model, HttpServletRequest request) {
-        //TODO is going to be called on edit, handle update != creation
+    public String createUser(@ModelAttribute("user") @Valid UserDTO user, BindingResult result, Model model, HttpServletRequest request) {
         if (result.hasErrors()) {
             //wrong parameters, the errors are automatically added to the model
             model.addAttribute("user", user);
@@ -69,14 +69,15 @@ class UserController {
 
     @RequestMapping("/{id}")
     public String viewUser(@PathVariable("id") User user, @RequestParam("mode") Optional<String> requestedMode, Model model) {
+        UserDTO userDTO = userService.convertToDto(user);
         String mode = requestedMode.orElse("view");
-        boolean self = userService.isCurrentUser(user);
+        boolean self = userService.isCurrentUser(userDTO);
         if (mode.equals("edit") && !self) mode = "view";
         model.addAttribute("mode", mode);
         model.addAttribute("self", self);
-        String title = (self) ? "Profile" : user.getUsername() + " profile";
+        String title = (self) ? "Profile" : userDTO.getUsername() + " profile";
         model.addAttribute("title", title);
-        model.addAttribute("user", user);
+        model.addAttribute("user", userDTO);
         return "/user";
     }
 }

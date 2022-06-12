@@ -1,6 +1,6 @@
 package isep.endoftrackproject._0money_c2c.validation;
 
-import isep.endoftrackproject._0money_c2c.model.User;
+import isep.endoftrackproject._0money_c2c.model.UserDTO;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -13,7 +13,7 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
 
     @Override
     public boolean isValid(final Object obj, final ConstraintValidatorContext context) {
-        final User user = (User) obj;
+        final UserDTO user = (UserDTO) obj;
         return user.getPassword().equals(user.getConfirmPassword());
     }
 }

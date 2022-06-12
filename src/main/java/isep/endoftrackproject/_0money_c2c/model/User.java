@@ -1,6 +1,5 @@
 package isep.endoftrackproject._0money_c2c.model;
 
-import isep.endoftrackproject._0money_c2c.validation.PasswordMatches;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,6 @@ import java.util.stream.Collectors;
 @Entity
 @Getter
 @Setter
-@PasswordMatches
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +29,6 @@ public class User {
     @NotNull
     @NotEmpty
     private String password;
-    @NotNull
-    @NotEmpty
-    @Transient
-    private String confirmPassword;
     @NotNull
     @NotEmpty
     private String telephoneNumber;
