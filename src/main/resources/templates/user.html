@@ -10,7 +10,7 @@
 <head th:replace="fragments/general.html::head"></head>
 <body>
 <div th:replace="fragments/general.html::navbar"></div>
-<form th:action="@{/user}" class="m-5 card px-5 bg-light" method="post" th:if="${create or edit or view}">
+<form th:action="@{''}" class="m-5 card px-5 bg-light" method="post" th:if="${create or edit or view}">
     <!--/*@thymesVar id="error" type="java.lang.String"*/-->
     <div class="row">
         <fieldset class="col-sm">
@@ -30,6 +30,13 @@
                 <small class="col-sm-12" th:each="error: ${#fields.errors('user.email')}"
                        th:text="${error}"></small>
             </div>
+            <div class="form-group row align-items-center" th:if="${self}">
+                <label class="col-sm-5 col-form-label">Telephone Number</label>
+                <input class="form-control col-sm-7" type="text" th:field="${user.telephoneNumber}" required
+                       th:disabled="${view}"/>
+                <small class="col-sm-12" th:each="error: ${#fields.errors('user.telephoneNumber')}"
+                       th:text="${error}"></small>
+            </div>
             <div class="form-group row" th:if="${!view}">
                 <label class="col-sm-5 col-form-label">Password</label>
                 <input class="form-control col-sm-7" type="password" th:field="${user.password}" required
@@ -42,13 +49,6 @@
                 <input class="form-control col-sm-7" type="password" th:field="${user.confirmPassword}" required
                        th:disabled="${view}"/>
                 <small class="col-sm-12" th:each="error: ${#fields.errors('user')}" th:text="${error}"></small>
-            </div>
-            <div class="form-group row align-items-center" th:if="${self}">
-                <label class="col-sm-5 col-form-label">Telephone Number</label>
-                <input class="form-control col-sm-7" type="text" th:field="${user.telephoneNumber}" required
-                       th:disabled="${view}"/>
-                <small class="col-sm-12" th:each="error: ${#fields.errors('user.telephoneNumber')}"
-                       th:text="${error}"></small>
             </div>
             <div class="form-group row" th:if="${!self}">
                 <label class="col-sm-5 col-form-label">Location</label>

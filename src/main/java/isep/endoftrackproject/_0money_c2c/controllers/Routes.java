@@ -20,6 +20,7 @@ public class Routes {
     public String messaging() {
         return "messaging";
     }
+
     @GetMapping("/product_information")
     public String product_information() {
         return "product_information";

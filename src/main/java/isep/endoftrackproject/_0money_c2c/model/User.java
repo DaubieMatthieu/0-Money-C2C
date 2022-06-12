@@ -35,13 +35,13 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @NotNull
     private Address address;
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.MERGE)
     private Set<Item> items;
-    @OneToMany(mappedBy = "author", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.MERGE)
     private Set<Rating> issuedRatings;
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.MERGE)
     private Set<Rating> referredRatings;
-    @OneToMany(mappedBy = "sender", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.MERGE)
     private Set<Message> sentMessages;
     @OneToMany(mappedBy = "user")
     private Set<TransactionApproval> transactionApprovals;
