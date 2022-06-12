@@ -33,4 +33,8 @@ public class Address {
     public String getText() {
         return line1 + " " + city + " " + zipCode + " " + country;
     }
+
+    public String getPublicLocation() {
+        return city + ", " + zipCode + ", " + country;
+    }
 }

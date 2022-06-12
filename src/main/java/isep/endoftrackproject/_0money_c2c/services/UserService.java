@@ -1,7 +1,9 @@
 package isep.endoftrackproject._0money_c2c.services;
 
 import isep.endoftrackproject._0money_c2c.model.User;
+import isep.endoftrackproject._0money_c2c.model.UserDTO;
 import isep.endoftrackproject._0money_c2c.repositories.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+    private final ModelMapper modelMapper = new ModelMapper();
 
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
@@ -29,11 +32,19 @@ public class UserService implements UserDetailsService {
                 true, true, new ArrayList<>());
     }
 
+    public boolean isCurrentUser(UserDTO userDTO) {
+        return isCurrentUser(userDTO.getEmail());
+    }
+
     public boolean isCurrentUser(User user) {
+        return isCurrentUser(user.getEmail());
+    }
+
+    private boolean isCurrentUser(String userEmail) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String email = authentication.getName();
-            return (email.equals(user.getEmail()));
+            String authEmail = authentication.getName();
+            return (authEmail.equals(userEmail));
         }
         return false;
     }
@@ -45,6 +56,26 @@ public class UserService implements UserDetailsService {
             return userRepository.findByEmail(email);
         }
         return null;
+    }
+
+    public UserDTO convertToDto(User user) {
+        return modelMapper.map(user, UserDTO.class);
+    }
+
+    public User convertToUser(UserDTO userDTO) {
+        return modelMapper.map(userDTO, User.class);
+    }
+
+    public User save(UserDTO userDTO) {
+        return save(convertToUser(userDTO));
+    }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    public User register(UserDTO userDTO) {
+        return register(convertToUser(userDTO));
     }
 
     public User register(User user) {
