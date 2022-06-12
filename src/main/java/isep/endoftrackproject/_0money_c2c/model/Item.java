@@ -43,8 +43,13 @@ public class Item {
     }
 
     public enum Quality {
-        NEW,
-        GOOD_QUALITY,
-        DAMAGED
+        NEW("New"),
+        GOOD_QUALITY("Good Quality"),
+        DAMAGED("Damaged");
+        public final String text;
+
+        Quality(String text) {
+            this.text = text;
+        }
     }
 }

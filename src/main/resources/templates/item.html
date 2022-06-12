@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--/*@thymesVar id="self" type="java.lang.Boolean"*/-->
+<!--/*@thymesVar id="mode" type="java.lang.String"*/-->
+<!--/*@thymesVar id="title" type="java.lang.String"*/-->
+<html lang="en" th:with="create=${mode=='create'}, edit=${mode=='edit'}, view=${mode=='view'}">
+<!--/*@thymesVar id="create" type="java.lang.Boolean"*/-->
+<!--/*@thymesVar id="edit" type="java.lang.Boolean"*/-->
+<!--/*@thymesVar id="view" type="java.lang.Boolean"*/-->
+<head th:replace="fragments/general.html::head"></head>
+<body>
+<div th:replace="fragments/general.html::navbar"></div>
+<form th:action="@{''}" class="m-5 card px-5 py-2 bg-light" method="post" th:if="${create or edit or view}">
+    <!--/*@thymesVar id="error" type="java.lang.String"*/-->
+    <input th:if="${edit}" type="number" th:field="${item.id}" required hidden/>
+    <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Name</label>
+        <input class="form-control col-sm-7" type="text" th:field="${item.name}" th:disabled="${view}" required>
+        <small class="col-sm-12" th:each="error: ${#fields.errors('item.name')}" th:text="${error}"></small>
+    </div>
+    <input type="number" th:field="${item.owner.id}" required hidden/>
+    <a class="form-group row" th:if="${!self}" th:href="@{/user/{id}(id=${item.owner.id})}" target="_blank">
+        <label class="col-sm-5 col-form-label">Owner</label>
+        <input class="form-control col-sm-7" type="text" th:field="${item.owner.username}" disabled>
+        <small class="col-sm-12" th:each="error: ${#fields.errors('item.owner.id')}" th:text="${error}"></small>
+    </a>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-control" th:field="${item.description}" th:disabled="${view}" required></textarea>
+        <small class="col-sm-12" th:each="error: ${#fields.errors('item.description')}" th:text="${error}"></small>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Quality</label>
+        <select class="form-control col-sm-7" type="text" th:field="${item.quality}" th:disabled="${view}" required>
+            <option th:each="v : ${T(isep.endoftrackproject._0money_c2c.model.Item.Quality).values()}" th:value="${v}"
+                    th:text="${v.text}"></option>
+        </select>
+        <small class="col-sm-12" th:each="error: ${#fields.errors('item.description')}" th:text="${error}"></small>
+    </div>
+    <div class="form-group row" th:if="${self}">
+        <label class="col-sm-5 col-form-label">Estimated price</label>
+        <input class="form-control col-sm-7" type="number" step="0.01" th:field="${item.price}" th:disabled="${view}" required>
+        <small class="col-sm-12" th:each="error: ${#fields.errors('item.price')}" th:text="${error}"></small>
+    </div>
+    <div class="form-group form-switch row">
+        <label class="col-sm-5">Available</label>
+        <input class="col-sm-7" type="checkbox" th:field="${item.available}" th:disabled="${view}">
+        <small class="col-sm-12" th:each="error: ${#fields.errors('item.available')}" th:text="${error}"></small>
+    </div>
+    <p th:if="${message!=null}" th:text="${message}"></p>
+    <div class="col text-center">
+        <a th:if="${view and self}" class="btn btn-primary" th:href="@{''(mode='edit')}">Edit</a>
+        <input th:if="${!view}" class="btn btn-primary" type="submit" value="Submit"/>
+        <a th:if="${edit}" class="btn btn-danger" th:href="@{''(mode='view')}">Cancel</a>
+    </div>
+</form>
+</body>
+</html>
