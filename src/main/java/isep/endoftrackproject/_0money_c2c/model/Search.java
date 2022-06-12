@@ -18,7 +18,7 @@ public class Search {
     private Double longitude = 2.294694;
     //TODO if no location provided, this value must be very very large to include any product
     //max distance between two points on Earth is 12450km
-    private Double maxDistance = 50.0;
+    private Double maxDistance = 1000.0;
     private Boolean available = true;
     private Item.Quality[] acceptedQualities = new Item.Quality[]{Item.Quality.NEW, Item.Quality.GOOD_QUALITY};
 

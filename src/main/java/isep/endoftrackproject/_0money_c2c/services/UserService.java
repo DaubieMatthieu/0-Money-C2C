@@ -58,6 +58,10 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
+    public User getById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
     public UserDTO convertToDto(User user) {
         return modelMapper.map(user, UserDTO.class);
     }

@@ -25,8 +25,7 @@
                 <label>Quality
                     <select class ="form-control">
                         <option th:each="v : ${T(isep.endoftrackproject._0money_c2c.model.Item.Quality).values()}"
-                                th:value="${v}"
-                                th:text="${v}"></option>
+                                th:value="${v}" th:text="${v.text}"></option>
                     </select>
                 </label>
             </div>
@@ -40,8 +39,10 @@
         <!--/*@thymesVar id="item" type="isep.endoftrackproject._0money_c2c.model.Item"*/-->
         <div th:each="item : ${results}" style="border: solid black 1px;margin: 5px;">
             <h5 th:text="${item.name}"></h5>
+            <p th:text="${item.description}"></p>
             <p th:text="${item.price}"></p>
             <p th:text="${item.owner.username}"></p>
+            <a th:href="@{/item/{id}(id=${item.id})}" target="_blank">See</a>
         </div>
     </div>
 </div>

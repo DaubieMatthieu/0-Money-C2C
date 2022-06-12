@@ -65,6 +65,7 @@
         </fieldset>
         <fieldset class="col-sm" th:if="${self}">
             <legend>Address</legend>
+            <input th:if="${edit}" type="number" th:field="${user.address.id}" required hidden/>
             <div class="form-group row">
                 <label class="col-sm-5 col-form-label">Line 1</label>
                 <input class="form-control col-sm-7" type="text" th:field="${user.address.line1}" required
