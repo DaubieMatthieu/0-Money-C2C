@@ -1,24 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" th:with="appName=${T(isep.endoftrackproject._0money_c2c.constants.Constants).APP_NAME}">
-<!--/*@thymesVar id="appName" type="String"*/-->
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${appName}"></title>
-</head>
+<html lang="en">
+<head th:replace="fragments/general.html::head"></head>
 <body>
+<div th:replace="fragments/general.html::navbar"></div>
 <div class="container">
-    <h1 th:text="${'Welcome to ' + appName + ' !'}"></h1>
-    <form id="search-items" th:action="@{/q}" th:object="${search}" method="post">
+    <form id="search-items" class="bg-secondary m-5 p-5 d-flex justify-content-around" th:action="@{/q}" th:object="${search}" method="post">
+        <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter
+            </button>
+            <div>
+            </div>
+            <div class="dropdown-menu p-3" aria-labelledby="dropdownMenuButton">
+                <label>Price
+                    <input class="form-control" th:field="${search.price}" type="number" step="0.01" required/>
+                </label>
+                <label>Marge
+                    <input class="form-control" th:field="${search.priceRange}" type="number" name="quantity" min="1" max="50">
+                </label>
+                <label>Distance (km)
+                    <input class="form-control" th:field="${search.maxDistance}" type="number" name="distance" min="1" max="1000">
+                </label>
+                <label>Quality
+                    <select class ="form-control">
+                        <option th:each="v : ${T(isep.endoftrackproject._0money_c2c.model.Item.Quality).values()}"
+                                th:value="${v}"
+                                th:text="${v}"></option>
+                    </select>
+                </label>
+            </div>
+        </div>
         <label>
-            <input type="text" th:field="*{keywords}" placeholder="What are you looking for ?"/>
+            <input type="text" th:field="${search.keywords}" class="form-control" style="width:400px" placeholder="What are you looking for ?" aria-label="Search"/>
         </label>
-        <label>Price
-            <input type="number" step="0.01" th:field="*{price}" required/>
-        </label>
-        <label>Price range
-            <input type="number" step="0.01" th:field="*{priceRange}" required/>
-        </label>
-        <button type="submit">Search</button>
+        <button type="submit" class="form-control">Search</button>
     </form>
     <div th:if="${not #lists.isEmpty(results)}">
         <!--/*@thymesVar id="item" type="isep.endoftrackproject._0money_c2c.model.Item"*/-->

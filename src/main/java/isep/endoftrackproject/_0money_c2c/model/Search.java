@@ -8,10 +8,10 @@ import lombok.Setter;
 @Setter
 public class Search {
     private String keywords;
-    private Double price;
+    private Double price = 20.0;
     //Provisional default values
     //TODO calculate pertinent values and store them in a specialized file (for example a .properties)
-    private Double priceRange = 10.0;
+    private Double priceRange = 50.0;
     //TODO will have to be retrieved from the current user
     //Defaults to Eiffel Tower coordinates
     private Double latitude = 48.858093;
