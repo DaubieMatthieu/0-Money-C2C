@@ -14,7 +14,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    private Date date;
+    private Date date = new Date(System.currentTimeMillis());
     @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Transaction transaction;
     @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.LAZY)

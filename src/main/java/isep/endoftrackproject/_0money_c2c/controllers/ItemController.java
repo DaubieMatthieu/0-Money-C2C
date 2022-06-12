@@ -76,7 +76,6 @@ public class ItemController {
     @PostMapping("/item/{id}")
     @PreAuthorize("isAuthenticated()")
     public String editUser(@ModelAttribute("item") @Valid Item item, BindingResult result, Model model, HttpServletRequest request) {
-        ;
         item.setOwner(userService.getById(item.getOwner().getId()));
         if (!userService.isCurrentUser(item.getOwner()))
             throw new IllegalArgumentException("Not enough rights to update this item");

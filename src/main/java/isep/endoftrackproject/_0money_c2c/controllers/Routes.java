@@ -11,12 +11,6 @@ public class Routes {
         return "login";
     }
 
-    @GetMapping("/messaging")
-    @PreAuthorize("isAuthenticated()")
-    public String messaging() {
-        return "messaging";
-    }
-
     @GetMapping("/product_information")
     public String product_information() {
         return "product_information";

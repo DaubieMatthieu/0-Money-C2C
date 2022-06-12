@@ -1,22 +1,40 @@
 <!DOCTYPE html>
-<html class="h-100" lang="en">
+<!--/*@thymesVar id="user" type="isep.endoftrackproject._0money_c2c.model.User"*/-->
+<!--/*@thymesVar id="transaction" type="isep.endoftrackproject._0money_c2c.model.Transaction"*/-->
+<!--/*@thymesVar id="message" type="isep.endoftrackproject._0money_c2c.model.Message"*/-->
+<html lang="en" class="h-100">
 <head th:replace="fragments/general.html::head"></head>
-<div th:replace="fragments/general.html::navbar"></div>
 <body class="h-100">
-<div class="container-fluid h-100">
-    <div class="row h-100">
-        <div class="col">
-            <h2>Contact List</h2>
+<div class="h-100 d-flex flex-column">
+    <div th:replace="fragments/general.html::navbar"></div>
+    <div class="row m-0 flex-grow overflow-auto">
+        <div class="card col-4 h-100">
+            <h2 class="text-center p-1">Discussions</h2>
+            <!--/*@thymesVar id="t" type="isep.endoftrackproject._0money_c2c.model.Transaction"*/-->
+            <a class="h5 btn btn-info" th:each="t: ${user.transactionsOrdered}"
+               th:href="@{/messaging/{id}(id=${t.id})}"
+               th:text="${t.getNameForUser(user)}"></a>
         </div>
-        <div class="col bg-secondary">
-            <h2>username</h2>
-        </div>
-        <div class="col-6">
-            <h2>Messaging</h2>
-            <input class="form-control fixed-bottom" type="text" placeholder="Enter message">
-        </div>
-        <div class="col bg-secondary">
-            <h2>username</h2>
+        <div class="card col-8 h-100" th:if="${transaction}">
+            <h2 class="text-center p-1" th:text="${transaction.getNameForUser(user)}"></h2>
+            <div th:each="message : ${transaction.getMessagesOrdered()}">
+                <div class="mw-75" th:classappend="${message.sender==user}?'float-right':'float-left'">
+                <!--/*@thymesVar id="message" type="isep.endoftrackproject._0money_c2c.model.Message"*/-->
+                <small th:text="${message.sender.username}" th:if="${message.sender!=user}"></small>
+                <div th:text="${message.content}"
+                     data-toggle="tooltip" th:title="${#dates.format(message.date, 'dd/MM/yyyy HH:mm')}"
+                     class="rounded text-white py-1 px-2 my-1"
+                     th:classappend="${message.sender==user}?'bg-primary':'bg-secondary'">
+                </div></div>
+            </div>
+            <form id="new-message-form" th:action="@{'/messaging'}" class="p-2 mt-auto" method="post">
+                <input type="hidden" th:field="${message.transaction.id}" required>
+                <input type="hidden" th:field="${message.sender.id}" required>
+                <div class="row">
+                    <input class="form-control col-9" type="text" th:field="${message.content}" required autofocus>
+                    <button class="btn btn-primary col-3" type="submit">Send</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

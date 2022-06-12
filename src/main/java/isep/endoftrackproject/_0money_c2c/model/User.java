@@ -7,6 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,12 +48,17 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<TransactionApproval> transactionApprovals;
 
+    public List<Transaction> getTransactionsOrdered() {
+        //order by last message date
+        return transactionApprovals.stream().map(TransactionApproval::getTransaction).sorted(Comparator.comparing(t -> t.getMessagesOrdered().get(0).getDate())).collect(Collectors.toList());
+    }
+
     public Double getRating() {
         return referredRatings.stream().mapToDouble(Rating::getRating).average().orElse(0.0);
     }
 
     public Set<Item> getSoldItems() {
-        return transactionApprovals.stream().map(TransactionApproval::getTransaction).filter(transaction -> transaction.getStatus()==Transaction.Status.ACCEPTED).flatMap(t->t.getItems().stream()).collect(Collectors.toSet());
+        return transactionApprovals.stream().map(TransactionApproval::getTransaction).filter(transaction -> transaction.getStatus() == Transaction.Status.ACCEPTED).flatMap(t -> t.getItems().stream()).collect(Collectors.toSet());
     }
 
     public Integer getSoldItemsCount() {
