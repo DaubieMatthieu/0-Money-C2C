@@ -92,7 +92,7 @@ class UserController {
             model.addAttribute("user", user);
             model.addAttribute("title", "Profile");
             model.addAttribute("self", true);
-            return "/user";
+            return "user";
         }
         //redirect to profile
         return "redirect:profile";
@@ -116,6 +116,6 @@ class UserController {
         String title = (self) ? "Profile" : userDTO.getUsername() + " profile";
         model.addAttribute("title", title);
         model.addAttribute("user", userDTO);
-        return "/user";
+        return "user";
     }
 }

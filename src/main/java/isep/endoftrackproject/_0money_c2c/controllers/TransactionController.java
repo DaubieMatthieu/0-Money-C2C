@@ -59,7 +59,7 @@ public class TransactionController {
         model.addAttribute("title", transaction.getNameForUser(currentUser));
         model.addAttribute("user", currentUser);
         model.addAttribute("transaction", transaction);
-        return "/transaction";
+        return "transaction";
     }
 
     @PostMapping("/{id}")
@@ -81,7 +81,7 @@ public class TransactionController {
             model.addAttribute("message", e.getMessage());
             model.addAttribute("transaction", transaction);
             model.addAttribute("title", transaction.getNameForUser(currentUser));
-            return "/transaction";
+            return "transaction";
         }
         return "redirect:/transaction/" + transaction.getId();
     }

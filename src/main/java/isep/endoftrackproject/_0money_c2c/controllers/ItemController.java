@@ -37,7 +37,7 @@ public class ItemController {
         Iterable<Item> searchResults = searchService.search(search);
         model.addAttribute("search", search);
         model.addAttribute("results", searchResults);
-        return "/index";
+        return "index";
     }
 
     @GetMapping("/item")
@@ -68,7 +68,7 @@ public class ItemController {
             model.addAttribute("message", "Registered item");
         } catch (Exception e) {
             model.addAttribute("message", e.getMessage());
-            return "/item";
+            return "item";
         }
         return "redirect:/item/" + item.getId();
     }
@@ -95,7 +95,7 @@ public class ItemController {
             model.addAttribute("item", item);
             model.addAttribute("title", "Edit " + item.getName());
             model.addAttribute("self", true);
-            return "/item";
+            return "item";
         }
         return "redirect:/item/" + item.getId();
     }
@@ -111,6 +111,6 @@ public class ItemController {
         String title = ((mode.equals("edit")) ? "Edit " : "") + item.getName();
         model.addAttribute("title", title);
         model.addAttribute("item", item);
-        return "/item";
+        return "item";
     }
 }

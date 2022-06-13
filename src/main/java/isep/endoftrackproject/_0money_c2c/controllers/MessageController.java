@@ -24,7 +24,7 @@ public class MessageController {
     @GetMapping
     public String inbox(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        return "/messaging";
+        return "messaging";
     }
 
     @GetMapping("/{id}")
