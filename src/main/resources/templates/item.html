@@ -51,6 +51,7 @@
         <a th:if="${view and self}" class="btn btn-primary" th:href="@{''(mode='edit')}">Edit</a>
         <input th:if="${!view}" class="btn btn-primary" type="submit" value="Submit"/>
         <a th:if="${edit}" class="btn btn-danger" th:href="@{''(mode='view')}">Cancel</a>
+        <a th:if="${!self}" class="btn btn-info" th:href="@{'/transaction'(item_ids=${item.id})}">Create transaction</a>
     </div>
 </form>
 </body>
