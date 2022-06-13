@@ -11,12 +11,13 @@
         <div class="card col-4 h-100">
             <h2 class="text-center p-1">Discussions</h2>
             <!--/*@thymesVar id="t" type="isep.endoftrackproject._0money_c2c.model.Transaction"*/-->
-            <a class="h5 btn btn-info" th:each="t: ${user.transactionsOrdered}"
-               th:href="@{/messaging/{id}(id=${t.id})}"
-               th:text="${t.getNameForUser(user)}"></a>
+            <a class="h5 btn" th:each="t: ${user.transactionsOrdered}"
+               th:href="@{/messaging/{id}(id=${t.id})}" th:text="${t.getNameForUser(user)}"
+               th:classappend="${(t.status.name.equals('PENDING'))?'btn-primary':((t.status.name.equals('ACCEPTED'))?'btn-success':'btn-danger')}"></a>
         </div>
         <div class="card col-8 h-100" th:if="${transaction}">
-            <h2 class="text-center p-1" th:text="${transaction.getNameForUser(user)}"></h2>
+            <a th:href="@{/transaction/{id}(id=${transaction.id})}" target="_blank"
+               class="text-center p-1 btn btn-info">See transaction</a>
             <div th:each="message : ${transaction.getMessagesOrdered()}">
                 <div class="mw-75" th:classappend="${message.sender==user}?'float-right':'float-left'">
                 <!--/*@thymesVar id="message" type="isep.endoftrackproject._0money_c2c.model.Message"*/-->

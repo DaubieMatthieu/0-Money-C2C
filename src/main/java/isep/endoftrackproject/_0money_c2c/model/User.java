@@ -49,8 +49,10 @@ public class User {
     private Set<TransactionApproval> transactionApprovals;
 
     public List<Transaction> getTransactionsOrdered() {
-        //order by last message date
-        return transactionApprovals.stream().map(TransactionApproval::getTransaction).sorted(Comparator.comparing(t -> t.getMessagesOrdered().get(0).getDate())).collect(Collectors.toList());
+        //order by transaction date and by status (PENDING first, then ACCEPTED and DECLINED)
+        Comparator<Transaction> compareByDate = Comparator.comparing(Transaction::getDate);
+        Comparator<Transaction> compareByStatus = Comparator.comparing(t -> t.getStatus().ordinal());
+        return transactionApprovals.stream().map(TransactionApproval::getTransaction).sorted(compareByStatus.thenComparing(compareByDate)).collect(Collectors.toList());
     }
 
     public Double getRating() {
@@ -59,6 +61,10 @@ public class User {
 
     public Set<Item> getSoldItems() {
         return transactionApprovals.stream().map(TransactionApproval::getTransaction).filter(transaction -> transaction.getStatus() == Transaction.Status.ACCEPTED).flatMap(t -> t.getItems().stream()).collect(Collectors.toSet());
+    }
+
+    public Set<Item> getAvailableItems() {
+        return items.stream().filter(Item::getAvailable).collect(Collectors.toSet());
     }
 
     public Integer getSoldItemsCount() {
