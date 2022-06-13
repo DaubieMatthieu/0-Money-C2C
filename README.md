@@ -24,7 +24,7 @@ CREATE DATABASE omoney_c2c;
 
 CREATE USER `spring`@`localhost` IDENTIFIED BY "spring2mysql";
 
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, REFERENCES ON omoney_c2c.* TO `spring`@`localhost`;
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, ALTER, REFERENCES, LOCK TABLES ON omoney_c2c.* TO `spring`@`localhost`;
 
 Once this is done you can simply run the application, it will create the tables itself.
-
+Alternatively you can also run the 'omoney_c2c_init.sql' sql script from the root folder to initiate the database with a small dataset
