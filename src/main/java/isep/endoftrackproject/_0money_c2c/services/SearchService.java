@@ -2,22 +2,33 @@ package isep.endoftrackproject._0money_c2c.services;
 
 import isep.endoftrackproject._0money_c2c.model.Item;
 import isep.endoftrackproject._0money_c2c.model.Search;
+import isep.endoftrackproject._0money_c2c.model.User;
 import isep.endoftrackproject._0money_c2c.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 
 @Service
 public class SearchService {
     @Autowired
     private ItemRepository itemRepository;
+    @Autowired
+    private UserService userService;
 
     public Iterable<Item> search(Search search) {
         //Retrieval and partial Filtering
         Iterable<Item> searchResults = itemRepository.
                 search(search.getPriceMin(), search.getPriceMax(), search.getLatitude(), search.getLongitude(), search.getMaxDistance(), search.getAvailable(), search.getAcceptedQualities());
+
+        //Do not display the items of the current user
+        User currentUser = userService.getCurrentUser();
+        if (currentUser!=null) {
+            searchResults = StreamSupport.stream(searchResults.spliterator(), false).filter(item -> item.getOwner()!=currentUser).collect(Collectors.toSet());
+        }
 
         List<String> querySplit = Arrays.asList(search.getKeywords().split(" "));
         List<Integer> queryVector = new ArrayList<>(Collections.nCopies(querySplit.size(), 1));
