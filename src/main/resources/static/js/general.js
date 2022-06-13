@@ -1,4 +1,7 @@
-$(document).ready(initDropdown)
+$(document).ready(()=>{
+    initDropdown();
+    $('.scroll-down').each((index, elt)=>scrollDown(elt));
+})
 
 function initDropdown() {
     //custom dropdown opening and closing to avoid closing when user clicks on <select>
@@ -14,4 +17,9 @@ function initDropdown() {
             $(".dropdown").dropdown('hide');
         }
     });
+}
+
+function scrollDown(container) {
+    //make scrollbar scroll down to bottom of the container
+    container.scrollTop = container.scrollHeight;
 }

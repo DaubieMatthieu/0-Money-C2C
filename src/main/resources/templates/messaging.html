@@ -5,9 +5,9 @@
 <html lang="en" class="h-100">
 <head th:replace="fragments/general.html::head"></head>
 <body class="h-100">
-<div class="h-100 d-flex flex-column">
-    <div th:replace="fragments/general.html::navbar"></div>
-    <div class="row m-0 flex-grow overflow-auto">
+<div class="h-100">
+    <div th:replace="fragments/general.html::navbar" style="height:15%;"></div>
+    <div class="row m-0" style="height:85%;">
         <div class="card col-4 h-100">
             <h2 class="text-center p-1">Discussions</h2>
             <!--/*@thymesVar id="t" type="isep.endoftrackproject._0money_c2c.model.Transaction"*/-->
@@ -17,15 +17,18 @@
         </div>
         <div class="card col-8 h-100" th:if="${transaction}">
             <h2 class="text-center p-1" th:text="${transaction.getNameForUser(user)}"></h2>
-            <div th:each="message : ${transaction.getMessagesOrdered()}">
-                <div class="mw-75" th:classappend="${message.sender==user}?'float-right':'float-left'">
-                <!--/*@thymesVar id="message" type="isep.endoftrackproject._0money_c2c.model.Message"*/-->
-                <small th:text="${message.sender.username}" th:if="${message.sender!=user}"></small>
-                <div th:text="${message.content}"
-                     data-toggle="tooltip" th:title="${#dates.format(message.date, 'dd/MM/yyyy HH:mm')}"
-                     class="rounded text-white py-1 px-2 my-1"
-                     th:classappend="${message.sender==user}?'bg-primary':'bg-secondary'">
-                </div></div>
+            <div id="messages" class="flex-grow-1 d-flex flex-column overflow-auto scroll-down">
+                <div th:each="message : ${transaction.getMessagesOrdered()}">
+                    <div th:classappend="${message.sender==user}?'float-right':'float-left'" style="max-width: 75%;">
+                        <!--/*@thymesVar id="message" type="isep.endoftrackproject._0money_c2c.model.Message"*/-->
+                        <small th:text="${message.sender.username}" th:if="${message.sender!=user}"></small>
+                        <div th:text="${message.content}"
+                             data-toggle="tooltip" th:title="${#dates.format(message.date, 'dd/MM/yyyy HH:mm')}"
+                             class="rounded text-white py-1 px-2 my-1"
+                             th:classappend="${message.sender==user}?'bg-primary':'bg-secondary'">
+                        </div>
+                    </div>
+                </div>
             </div>
             <form id="new-message-form" th:action="@{'/messaging'}" class="p-2 mt-auto" method="post">
                 <input type="hidden" th:field="${message.transaction.id}" required>
