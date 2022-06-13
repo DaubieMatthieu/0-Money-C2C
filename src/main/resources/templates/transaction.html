@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--/*@thymesVar id="mode" type="java.lang.String"*/-->
+<html lang="en" th:with="create=${mode=='create'}, edit=${mode=='edit'}, view=${mode=='view'}">
+<!--/*@thymesVar id="create" type="java.lang.Boolean"*/-->
+<!--/*@thymesVar id="edit" type="java.lang.Boolean"*/-->
+<!--/*@thymesVar id="view" type="java.lang.Boolean"*/-->
+<head th:replace="fragments/general.html::head"></head>
+<body>
+<div th:replace="fragments/general.html::navbar"></div>
+<form th:action="@{''}" method="post" class="py-2">
+    <h3 class="text-center m-1">Items to exchange</h3>
+    <div class="row my-1">
+        <!--/*@thymesVar id="item" type="isep.endoftrackproject._0money_c2c.model.Item"*/-->
+        <div class="col-sm card">
+            <h5>Your items</h5>
+            <div th:each="item:${user.getAvailableItems()}">
+                <input type="checkbox" name="itemsToExchange" th:value="${item.id}"
+                       th:checked="${transaction.items.contains(item)}" th:disabled="${view}"/>
+                <div th:replace="fragments/item_fragments::item_fragment(item=${item})"></div>
+            </div>
+        </div>
+        <div class="col-sm card">
+            <h5>Items to acquire</h5>
+            <div th:each="item:${transaction.getPotentialItemsForUser(user)}">
+                <input type="checkbox" name="itemsToAcquire" th:value="${item.id}"
+                       th:checked="${transaction.items.contains(item)}" th:disabled="${view}"/>
+                <div th:replace="fragments/item_fragments::item_fragment(item=${item})"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col text-center">
+        <a th:if="${view}" class="btn btn-primary" th:href="@{''(mode='edit')}">Edit</a>
+        <input th:if="${!view}" class="btn btn-primary" type="submit" value="Submit"/>
+        <a th:if="${edit}" class="btn btn-danger" th:href="@{''(mode='view')}">Cancel</a>
+    </div>
+</form>
+</body>
+</html>
