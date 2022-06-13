@@ -78,7 +78,7 @@ public class Transaction {
 
     public Transaction(Collection<Item> items) {
         this.items.addAll(items);
-        Set<User> involvedUsers = getInvolvedUsers();
+        Set<User> involvedUsers = items.stream().map(Item::getOwner).collect(Collectors.toSet());
         involvedUsers.forEach(user -> transactionApprovals.add(new TransactionApproval(user, this)));
     }
 }

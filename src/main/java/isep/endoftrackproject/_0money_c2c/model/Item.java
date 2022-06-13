@@ -17,7 +17,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     private User owner;
     private String description;
     private Double price;

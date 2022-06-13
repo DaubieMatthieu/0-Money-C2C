@@ -5,7 +5,6 @@ import isep.endoftrackproject._0money_c2c.model.Transaction;
 import isep.endoftrackproject._0money_c2c.repositories.MessageRepository;
 import isep.endoftrackproject._0money_c2c.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
