@@ -106,9 +106,10 @@
 </form>
 
 <div th:if="${view}">
-    <h3>Ads</h3>
-    <div>
-        <!-- TODO display ads with a dedicated fragment-->
+    <h3>Items</h3>
+    <!--/*@thymesVar id="item" type="isep.endoftrackproject._0money_c2c.model.Item"*/-->
+    <div th:each="item:${items}">
+        <div th:replace="fragments/item_fragments::item_fragment(item=${item})"></div>
     </div>
 </div>
 </body>

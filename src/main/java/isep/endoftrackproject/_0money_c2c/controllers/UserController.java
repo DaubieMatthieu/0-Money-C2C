@@ -1,5 +1,6 @@
 package isep.endoftrackproject._0money_c2c.controllers;
 
+import isep.endoftrackproject._0money_c2c.model.Item;
 import isep.endoftrackproject._0money_c2c.model.User;
 import isep.endoftrackproject._0money_c2c.model.UserDTO;
 import isep.endoftrackproject._0money_c2c.repositories.AddressRepository;
@@ -17,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -116,6 +118,9 @@ class UserController {
         String title = (self) ? "Profile" : userDTO.getUsername() + " profile";
         model.addAttribute("title", title);
         model.addAttribute("user", userDTO);
+        //owner see all his own items, other users see only available ones
+        Set<Item> items = (self) ? user.getItems() : user.getAvailableItems();
+        model.addAttribute("items", items);
         return "user";
     }
 }
